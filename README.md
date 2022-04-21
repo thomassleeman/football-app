@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+### This didn't work for a really long time
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+For a long time this app did not work. The problem was that that first page would load up the data as required but when the user clicked on an item to go through to the next page the data was not present and the app would crash complaining of a type error.
 
-## Available Scripts
+**The problems**
+For one thing there is an issue with Football API which is that each season is defined by the year in which it started. So searching for 2022 during the 2021/22 season will return nothing.
 
-In the project directory, you can run:
+The main issue was that I was asking useFetch to set the state to 'loading' when that should have been happening onClick at the point at which the user clicks an item. When I changed this the problem went away.
 
-### `npm start`
+### Planning
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`Functionality`
+**Home** page with Search bar to search either teams or leagues. Lists all leagues on first render.
+--> click on a league -->
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**League** page with list of teams
+--> click on a team -->
 
-### `npm test`
+**Team** page with team info
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**About** page with basic description of what the app is
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`api calls`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Leagues: All leagues
+2. League by name: List of teams in a given league
+3. League by ID
+4. Team by name: specific team
+5. Team by ID.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`Components`
 
-### `npm run eject`
+1. Navbar
+2. Loading
+3. Search
+4. Leagues
+5. League
+6. Team
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`Pages`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Home
+2. About
+3. Error
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`App`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. index
+2. App
+3. context
 
-## Learn More
+### Notes on Football API
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The sign in process on football Api is a bit strange. You have to select the option to 'sign up' directly through football Api and the website will then work out who you are from your browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Note:
+The plan now is to use call() to dispatch new state and simply invoke call with the relevant endpoint from whereever it is needed throughout the app.
